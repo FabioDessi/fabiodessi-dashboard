@@ -5,6 +5,7 @@ const workExperiencesView = async (req, res) => {
   try {
     const list = await WorkExperience.find({});
     res.render('workExperiences', {
+      title: 'Work experiences',
       list,
     });
   } catch (error) {
@@ -18,7 +19,10 @@ const workExperienceView = async (req, res) => {
 
   try {
     const workExperience = await WorkExperience.findById(workExperienceId);
-    res.render('workExperience', { workExperience });
+    res.render('workExperience', {
+      title: workExperience.title,
+      workExperience,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -26,7 +30,7 @@ const workExperienceView = async (req, res) => {
 
 // Create new Work Experience View
 const createWorkExperienceView = (req, res) => {
-  res.render('createWorkExperience');
+  res.render('createWorkExperience', { title: 'Create new work experience' });
 };
 
 // Create new Work Experience
