@@ -1,0 +1,34 @@
+extends default 
+
+block content
+  form#update-work-experience-form
+    input(type="text" name="title" value=workExperience.title)
+    textarea(name="description", cols="30", rows="10") #{workExperience.description}
+    button(type="button" onClick="updateWorkExperience('" + workExperience.id + "')") Update 
+  a(href="/work-experiences") Back to Work Experiences list
+
+  script.
+    function updateWorkExperience(id) {
+        const formData = new FormData(
+          document.getElementById('update-work-experience-form')
+        );
+        const title = formData.get('title');
+        const description = formData.get('description');
+
+        fetch(`/work-experiences/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, description }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              window.location.href = `/work-experiences/${id}`;
+            } else {
+              alert('Error updating work experience: ' + data.message);
+            }
+          })
+          .catch((error) => {
+            alert('Error: ' + error.message);
+          });
+      }
