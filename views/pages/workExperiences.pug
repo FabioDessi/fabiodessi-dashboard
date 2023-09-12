@@ -1,0 +1,21 @@
+extends ../layouts/base 
+
+block content 
+  h1(class="text-2xl font-bold mb-4") #{title}
+
+  table(class="min-w-full bg-white shadow-md rounded-lg overflow-hidden")
+    thead
+      tr 
+        th(class="bg-blue-600 text-white p-3 text-left border-r") Title 
+        th(class="bg-blue-600 text-white p-3 text-left border-r") Description 
+        th(class="bg-blue-600 text-white p-3 text-left w-1/4") Actions
+    tbody 
+      each result in list 
+        tr(class="border-b border-gray-200 hover:bg-gray-100")
+          td(class="p-3 text-left border-r") #{result.title}
+          td(class="p-3 text-left border-r") #{result.description}
+          td(class="p-3 flex justify-start") 
+            a(href="/work-experiences/" + result.id class="text-white bg-blue-600 hover:bg-blue-700 rounded px-3 py-1 mr-2") Edit
+            button(hx-delete="/work-experiences/" + result.id, hx-target="body" class="text-white bg-red-500 hover:bg-red-600 rounded px-3 py-1") Delete
+            
+  a(href="/work-experiences/create" class="inline-block mt-4 bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded") Add New

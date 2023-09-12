@@ -1,0 +1,41 @@
+extends ../layouts/base 
+
+block content
+  h1(class="text-2xl font-bold mb-4") #{title}
+
+  form#update-work-experience-form(class="bg-white p-6 rounded shadow-md")
+    div(class="mb-4")
+      label(for="title" class="block text-sm font-medium text-gray-600 mb-2") Title
+      input(type="text" name="title" value=workExperience.title class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4")
+      label(for="description" class="block text-sm font-medium text-gray-600 mb-2") Description
+      textarea(name="description", cols="30", rows="10" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none") #{workExperience.description}
+    div(class="mb-4")
+      button(type="button" onClick="updateWorkExperience('" + workExperience.id + "')" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded") Update 
+  a(href="/work-experiences" class="text-blue-500 hover:underline mt-4 inline-block") Back to Work Experiences list
+
+  script.
+    function updateWorkExperience(id) {
+        const formData = new FormData(
+          document.getElementById('update-work-experience-form')
+        );
+        const title = formData.get('title');
+        const description = formData.get('description');
+
+        fetch(`/work-experiences/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, description }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              window.location.href = `/work-experiences/${id}`;
+            } else {
+              alert('Error updating work experience: ' + data.message);
+            }
+          })
+          .catch((error) => {
+            alert('Error: ' + error.message);
+          });
+      }

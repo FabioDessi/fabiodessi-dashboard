@@ -4,7 +4,7 @@ const WorkExperience = require('../models/WorkExperience');
 const workExperiencesView = async (req, res) => {
   try {
     const list = await WorkExperience.find({});
-    res.render('workExperiences', {
+    res.render('pages/workExperiences', {
       title: 'Work experiences',
       list,
     });
@@ -19,7 +19,7 @@ const workExperienceView = async (req, res) => {
 
   try {
     const workExperience = await WorkExperience.findById(workExperienceId);
-    res.render('workExperience', {
+    res.render('pages/workExperience', {
       title: workExperience.title,
       workExperience,
     });
@@ -30,7 +30,9 @@ const workExperienceView = async (req, res) => {
 
 // Create new Work Experience View
 const createWorkExperienceView = (req, res) => {
-  res.render('createWorkExperience', { title: 'Create new work experience' });
+  res.render('pages/createWorkExperience', {
+    title: 'Create new work experience',
+  });
 };
 
 // Create new Work Experience
