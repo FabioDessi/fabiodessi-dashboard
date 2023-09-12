@@ -74,13 +74,14 @@ const deleteWorkExperience = async (req, res) => {
   const { workExperienceId } = req.params;
   try {
     await WorkExperience.findByIdAndDelete(workExperienceId);
-    res.json({
-      success: true,
-      message: 'Work experience deleted successfully.',
+    const list = await WorkExperience.find({});
+
+    res.render('workExperiences', {
+      title: 'Work experiences',
+      list,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 

@@ -15,21 +15,6 @@ block content
             a(href="/work-experiences/" + result.id ) #{result.title} 
           td #{result.description}
           td 
-            button(onClick="deleteWorkExperience('" + result.id + "')") Delete
+            button(hx-delete="/work-experiences/" + result.id, hx-target="body") Delete
+            
   a(href="/work-experiences/create") Add New
-
-  script.
-    function deleteWorkExperience(id) {
-      fetch(`/work-experiences/${id}`, { method: 'DELETE' })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            location.reload();
-          } else {
-            console.log('Error deleting work experience:', data.message);
-          }
-        })
-        .catch((error) => {
-          console.error('Error deleting work experience:', error);
-        });
-    }
