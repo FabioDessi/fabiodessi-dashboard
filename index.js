@@ -18,7 +18,7 @@ mongoose
 app.set('view engine', 'pug');
 
 app.get('/', (req, res) => {
-  res.render('home', { title: 'Homepage' });
+  res.render('pages/dashboard', { title: 'Homepage' });
 });
 
 app.use('/work-experiences', require('./routes/workExperiences'));
