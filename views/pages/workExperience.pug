@@ -5,8 +5,31 @@ block content
 
   form#update-work-experience-form(class="bg-white p-6 rounded shadow-md")
     div(class="mb-4")
-      label(for="title" class="block text-sm font-medium text-gray-600 mb-2") Title
-      input(type="text" name="title" value=workExperience.title class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      label(for="role" class="block text-sm font-medium text-gray-600 mb-2") Role
+      input(type="text" name="role" value=workExperience.role class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4")
+      label(for="company" class="block text-sm font-medium text-gray-600 mb-2") Company
+      input(type="text" name="company" value=workExperience.company class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4")
+      label(for="type" class="block text-sm font-medium text-gray-600 mb-2") Type (Freelance, Contract...)
+      input(type="text" name="type" value=workExperience.type class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="flex mb-4")
+      div(class="w-1/2 pr-2")
+        label(for="startDateMonth" class="block text-sm font-medium text-gray-600 mb-2") Start Date Month
+        input(type="text" name="startDateMonth" value=workExperience.startDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      div(class="w-1/2 pl-2")
+        label(for="startDateYear" class="block text-sm font-medium text-gray-600 mb-2") Start Date Year
+        input(type="text" name="startDateYear" value=workExperience.startDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4 inline-flex items-center")
+      input(type="checkbox" name="stillOpen" value="true" class="mr-2 focus:border-blue-500 focus:outline-none" checked=workExperience.stillOpen)
+      label(for="stillOpen" class="text-sm font-medium text-gray-600") Still Open
+    div(class="flex mb-4")
+      div(class="w-1/2 pr-2")
+        label(for="endDateMonth" class="block text-sm font-medium text-gray-600 mb-2") End Date Month
+        input(type="text" name="endDateMonth" value=workExperience.endDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      div(class="w-1/2 pl-2")
+        label(for="endDateYear" class="block text-sm font-medium text-gray-600 mb-2") End Date Year
+        input(type="text" name="endDateYear" value=workExperience.endDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
     div(class="mb-4")
       label(for="description" class="block text-sm font-medium text-gray-600 mb-2") Description
       textarea(name="description", cols="30", rows="10" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none") #{workExperience.description}
@@ -16,25 +39,19 @@ block content
 
   script.
     function updateWorkExperience(id) {
-        const formData = new FormData(
-          document.getElementById('update-work-experience-form')
-        );
-        const title = formData.get('title');
-        const description = formData.get('description');
+        const formData = new FormData(document.getElementById('update-work-experience-form'));
+        const data = {};
+
+        for (let[key, value] of formData.entries()) {
+          data[key] = value; // Keep other values as they are
+        }
 
         fetch(`/work-experiences/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, description }),
+          body: JSON.stringify(data),
         })
           .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              window.location.href = `/work-experiences/${id}`;
-            } else {
-              alert('Error updating work experience: ' + data.message);
-            }
-          })
           .catch((error) => {
             alert('Error: ' + error.message);
           });
