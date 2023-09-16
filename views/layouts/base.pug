@@ -13,3 +13,5 @@ html(lang="en")
         main(class="flex-1 bg-gray-100 p-4 overflow-y-auto")
           block content 
       include ./footer
+      if notification
+        div(class="fixed bottom-0 right-0 mb-4 mr-4 p-4 rounded shadow-lg transition-opacity duration-300 " + (notification.type === 'info' ? 'bg-blue-500' : notification.type === 'error' ? 'bg-red-500' : 'bg-green-500')) #{notification.msg}

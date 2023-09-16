@@ -1,8 +1,9 @@
 aside(class="bg-gray-800 w-64 p-4 h-full overflow-y-auto")
-  ul
-    li(class="text-white mb-2 hover:bg-gray-700 p-2 rounded")
-      a(href="/") Dashboard
-    li(class="text-white mb-2 hover:bg-gray-700 p-2 rounded")
-      a(href="/work-experiences") Work Experiences
-    li(class="text-white mb-2 hover:bg-gray-700 p-2 rounded")
-      a(href="#") Users
+  nav
+    ul
+      li(class=(currentUrl === '/' ? 'bg-gray-700' : '') + " text-white mb-2 hover:bg-gray-700 p-2 rounded")
+        a(href="/") Dashboard
+      li(class=(currentUrl && currentUrl.startsWith('/work-experiences') ? 'bg-gray-700' : '') + " text-white mb-2 hover:bg-gray-700 p-2 rounded")
+        a(href="/work-experiences") Work Experiences
+      li(class="text-white mb-2 hover:bg-gray-700 p-2 rounded")
+        a(href="#") Users

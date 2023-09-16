@@ -3,7 +3,12 @@ extends ../layouts/base
 block content
   h1(class="text-2xl font-bold mb-4") #{title}
 
-  form#update-work-experience-form(class="bg-white p-6 rounded shadow-md")
+  form#update-work-experience-form( 
+    hx-put=`/work-experiences/${workExperience.id}`,
+    hx-method="put",
+    hx-target="body",
+    class="bg-white p-6 rounded shadow-md"
+  )
     div(class="mb-4")
       label(for="role" class="block text-sm font-medium text-gray-600 mb-2") Role
       input(type="text" name="role" value=workExperience.role class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
@@ -34,25 +39,5 @@ block content
       label(for="description" class="block text-sm font-medium text-gray-600 mb-2") Description
       textarea(name="description", cols="30", rows="10" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none") #{workExperience.description}
     div(class="mb-4")
-      button(type="button" onClick="updateWorkExperience('" + workExperience.id + "')" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded") Update 
+      input(type="submit" value="Update" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded")
   a(href="/work-experiences" class="text-blue-500 hover:underline mt-4 inline-block") Back to Work Experiences list
-
-  script.
-    function updateWorkExperience(id) {
-        const formData = new FormData(document.getElementById('update-work-experience-form'));
-        const data = {};
-
-        for (let[key, value] of formData.entries()) {
-          data[key] = value; // Keep other values as they are
-        }
-
-        fetch(`/work-experiences/${id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .catch((error) => {
-            alert('Error: ' + error.message);
-          });
-      }
