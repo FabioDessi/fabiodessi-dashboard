@@ -37,9 +37,28 @@ const createWorkExperienceView = (req, res) => {
 
 // Create new Work Experience
 const createWorkExperience = async (req, res) => {
-  const { title, description } = req.body;
+  const {
+    role,
+    company,
+    type,
+    startDateMonth,
+    startDateYear,
+    endDateMonth,
+    endDateYear,
+    stillOpen,
+    description,
+  } = req.body;
+
+  const stillOpenBoolean = stillOpen && stillOpen === 'true' ? true : false;
   const newWorkExperience = new WorkExperience({
-    title,
+    role,
+    company,
+    type,
+    startDateMonth,
+    startDateYear,
+    endDateMonth,
+    endDateYear,
+    stillOpen: stillOpenBoolean,
     description,
   });
 
@@ -53,12 +72,31 @@ const createWorkExperience = async (req, res) => {
 
 // Update Work Experience
 const updateWorkExperience = async (req, res) => {
-  const { title, description } = req.body;
+  const {
+    role,
+    company,
+    type,
+    startDateMonth,
+    startDateYear,
+    endDateMonth,
+    endDateYear,
+    stillOpen,
+    description,
+  } = req.body;
+
   const { workExperienceId } = req.params;
+  const stillOpenBoolean = stillOpen && stillOpen === 'true' ? true : false;
 
   try {
     await WorkExperience.findByIdAndUpdate(workExperienceId, {
-      title,
+      role,
+      company,
+      type,
+      startDateMonth,
+      startDateYear,
+      endDateMonth,
+      endDateYear,
+      stillOpen: stillOpenBoolean,
       description,
     });
     res.json({
