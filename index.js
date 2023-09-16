@@ -17,6 +17,7 @@ mongoose
 
 app.set('view engine', 'pug');
 
+// TODO: Add routes and page for 404 and 500s
 app.get('/', (req, res) => {
   res.render('pages/dashboard', { title: 'Homepage' });
 });

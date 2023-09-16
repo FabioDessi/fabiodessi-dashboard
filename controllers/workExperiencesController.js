@@ -63,10 +63,11 @@ const createWorkExperience = async (req, res) => {
   });
 
   try {
-    newWorkExperience.save();
+    await newWorkExperience.save();
     res.redirect('/work-experiences');
   } catch (error) {
     console.log(error);
+    res.status(500).send('Server Error');
   }
 };
 
