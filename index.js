@@ -22,5 +22,5 @@ app.get('/', (req, res) => {
   res.render('pages/dashboard', { title: 'Homepage' });
 });
 
-app.use('/work-experiences', require('./routes/workExperiences'));
+app.use('/work-experiences', require('./routes/dashboardWorkExperiences'));
 app.listen(PORT, console.log('Server started on port: ' + PORT));

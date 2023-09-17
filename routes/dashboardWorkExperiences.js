@@ -8,7 +8,7 @@ const {
   createWorkExperienceView,
   deleteWorkExperience,
   updateWorkExperience,
-} = require('../controllers/workExperiencesController');
+} = require('../controllers/dashboardWorkExperiencesController');
 
 const router = express.Router();
 
