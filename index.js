@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/work-experiences', require('./routes/dashboardWorkExperiences'));
+app.use('/api/work-experiences', require('./routes/apiWorkExperiences'));
 
 // Catch-all 404 handler
 app.use((req, res, next) => {
