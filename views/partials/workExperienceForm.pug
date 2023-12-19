@@ -1,0 +1,59 @@
+include ../partials/notification
+
+if errors && Object.keys(errors).length
+  +notification('error', 'Validation error', 'Check the form for the specific error.', errorCircleSvg)
+
+form#update-work-experience-form( 
+  hx-put=`/work-experiences/${workExperience.id}`
+  hx-method="put"
+  hx-target="#form-container"
+  hx-swap="innerHTML"
+  class="bg-white p-6 rounded shadow-md"
+)
+  div(class="mb-4")
+    label(for="role" class="block text-sm font-medium text-gray-600 mb-2") Role
+    input(type="text" name="role" value=workExperience.role class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    if errors && errors.role
+      p.text-red-500.text-xs.mt-2 #{errors.role.msg}
+  div(class="mb-4")
+    label(for="company" class="block text-sm font-medium text-gray-600 mb-2") Company
+    input(type="text" name="company" value=workExperience.company class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    if errors && errors.company
+      p.text-red-500.text-xs.mt-2 #{errors.company.msg}    
+  div(class="mb-4")
+    label(for="type" class="block text-sm font-medium text-gray-600 mb-2") Type (Freelance, Contract...)
+    input(type="text" name="type" value=workExperience.type class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    if errors && errors.type
+      p.text-red-500.text-xs.mt-2 #{errors.type.msg}
+  div(class="flex mb-4")
+    div(class="w-1/2 pr-2")
+      label(for="startDateMonth" class="block text-sm font-medium text-gray-600 mb-2") Start Date Month
+      input(type="text" name="startDateMonth" value=workExperience.startDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      if errors && errors.startDateMonth
+        p.text-red-500.text-xs.mt-2 #{errors.startDateMonth.msg}
+    div(class="w-1/2 pl-2")
+      label(for="startDateYear" class="block text-sm font-medium text-gray-600 mb-2") Start Date Year
+      input(type="text" name="startDateYear" value=workExperience.startDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      if errors && errors.startDateYear
+        p.text-red-500.text-xs.mt-2 #{errors.startDateYear.msg}
+  div(class="mb-4 inline-flex items-center")
+    input(type="checkbox" name="stillOpen" value="true" class="mr-2 focus:border-blue-500 focus:outline-none" checked=workExperience.stillOpen)
+    label(for="stillOpen" class="text-sm font-medium text-gray-600") Still Open
+  div(class="flex mb-4")
+    div(class="w-1/2 pr-2")
+      label(for="endDateMonth" class="block text-sm font-medium text-gray-600 mb-2") End Date Month
+      input(type="text" name="endDateMonth" value=workExperience.endDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      if errors && errors.endDateMonth
+        p.text-red-500.text-xs.mt-2 #{errors.endDateMonth.msg}
+    div(class="w-1/2 pl-2")
+      label(for="endDateYear" class="block text-sm font-medium text-gray-600 mb-2") End Date Year
+      input(type="text" name="endDateYear" value=workExperience.endDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      if errors && errors.endDateYear
+        p.text-red-500.text-xs.mt-2 #{errors.endDateYear.msg}
+  div(class="mb-4")
+    label(for="description" class="block text-sm font-medium text-gray-600 mb-2") Description
+    textarea(name="description", cols="30", rows="10" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none") #{workExperience.description}
+    if errors && errors.description
+        p.text-red-500.text-xs.mt-2 #{errors.description.msg}
+  div(class="mb-4")
+    input(type="submit" value="Update" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded")

@@ -37,9 +37,13 @@ block content
       div(class="w-1/2 pr-2")
         label(for="endDateMonth" class="block text-sm font-medium text-gray-600 mb-2") End Date Month
         input(type="text" name="endDateMonth" id="endDateMonth" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+        if errors && errors.endDateMonth
+          p.text-red-500.text-xs.mt-2 #{errors.endDateMonth.msg}
       div(class="w-1/2 pl-2")
         label(for="endDateYear" class="block text-sm font-medium text-gray-600 mb-2") End Date Year
         input(type="text" name="endDateYear" id="endDateYear" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+        if errors && errors.endDateYear
+          p.text-red-500.text-xs.mt-2 #{errors.endDateYear.msg}
     div(class="mb-4")
       label(for="description" class="block text-sm font-medium text-gray-600 mb-2") Description
       textarea(name="description", id="description" cols="30", rows="10" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")

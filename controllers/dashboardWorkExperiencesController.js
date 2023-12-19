@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const WorkExperience = require('../models/WorkExperience');
 
 // Work Experiences List
@@ -17,6 +19,23 @@ const workExperiencesView = async (req, res) => {
 // Single Work Experience
 const workExperienceView = async (req, res) => {
   const { workExperienceId } = req.params;
+  // Reading the SVG files
+  const infoCircleSvg = fs.readFileSync(
+    path.join(__dirname, '../public/assets/info-circle.svg'),
+    'utf8'
+  );
+  const alertTriangleSvg = fs.readFileSync(
+    path.join(__dirname, '../public/assets/alert-triangle.svg'),
+    'utf8'
+  );
+  const successCircleSvg = fs.readFileSync(
+    path.join(__dirname, '../public/assets/success-circle.svg'),
+    'utf8'
+  );
+  const errorCircleSvg = fs.readFileSync(
+    path.join(__dirname, '../public/assets/error-circle.svg'),
+    'utf8'
+  );
 
   try {
     const workExperience = await WorkExperience.findById(workExperienceId);
@@ -24,6 +43,10 @@ const workExperienceView = async (req, res) => {
       currentUrl: req.originalUrl,
       title: 'Update work experience',
       workExperience,
+      infoCircleSvg,
+      alertTriangleSvg,
+      successCircleSvg,
+      errorCircleSvg,
     });
   } catch (error) {
     console.log(error);
@@ -107,17 +130,13 @@ const updateWorkExperience = async (req, res) => {
       },
       { new: true }
     );
-    res.render('pages/workExperience', {
-      currentUrl: req.originalUrl,
-      title: 'Update work experience',
+
+    res.render('partials/workExperienceForm', {
       workExperience: updateWorkExperience,
-      notification: {
-        type: 'success',
-        msg: 'Work experience updates successfully',
-      },
     });
   } catch (error) {
     console.log(error);
+    res.status(500).send('Server Error');
   }
 };
 

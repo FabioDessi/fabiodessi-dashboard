@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 dotenv.config();
 const app = express();
@@ -9,6 +10,7 @@ const database = process.env.MONGOLAB_URI;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 mongoose
   .connect(database, { useUnifiedTopology: true, useNewUrlParser: true })

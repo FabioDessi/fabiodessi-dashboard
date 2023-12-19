@@ -1,5 +1,8 @@
 const express = require('express');
-const { workExperienceValidation } = require('../utils/validation');
+const {
+  createWorkExperienceValidation,
+  updateWorkExperienceValidation,
+} = require('../utils/validation');
 
 const {
   workExperiencesView,
@@ -16,8 +19,12 @@ router.get('/', workExperiencesView);
 router.get('/create', createWorkExperienceView);
 router.get('/:workExperienceId', workExperienceView);
 
-router.put('/:workExperienceId', updateWorkExperience);
-router.post('/create', workExperienceValidation, createWorkExperience);
+router.put(
+  '/:workExperienceId',
+  updateWorkExperienceValidation,
+  updateWorkExperience
+);
+router.post('/create', createWorkExperienceValidation, createWorkExperience);
 router.delete('/:workExperienceId', deleteWorkExperience);
 
 module.exports = router;
