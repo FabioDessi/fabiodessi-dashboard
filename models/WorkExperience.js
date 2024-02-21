@@ -13,10 +13,6 @@ const WorkExperienceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // companyLogo: {
-  //   type: ???,
-  //   required: true,
-  // },
   startDateMonth: {
     type: String,
     required: true,

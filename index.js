@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const convertKebabCaseToCamelCase = require('./middleware/convertKebabCaseToCamelCase');
 
 dotenv.config();
 const app = express();
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const database = process.env.MONGOLAB_URI;
 
 app.use(express.urlencoded({ extended: false }));
+app.use(convertKebabCaseToCamelCase);
 app.use(express.json());
 app.use(cors());
 
@@ -23,8 +25,12 @@ app.get('/', (req, res) => {
   res.render('pages/dashboard', { title: 'Homepage' });
 });
 
+// Work experiences routes
 app.use('/work-experiences', require('./routes/dashboardWorkExperiences'));
 app.use('/api/work-experiences', require('./routes/apiWorkExperiences'));
+
+// About routes
+app.use('/about-sections', require('./routes/dashboardAboutSections'));
 
 // Catch-all 404 handler
 app.use((req, res, next) => {

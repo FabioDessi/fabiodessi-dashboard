@@ -2,7 +2,7 @@ extends ../layouts/base
 
 block content 
   h1(class="text-2xl font-bold mb-4") #{title}
-
+  // TODO: refactor form to use partial for both POST and PUT requests
   form(method="POST" action="/work-experiences/create" class="bg-white p-6 rounded shadow-md")
     div(class="mb-4")
       label(for="role" class="block text-sm font-medium text-gray-600 mb-2") Role
@@ -21,27 +21,27 @@ block content
         p.text-red-500.text-xs.mt-2 #{errors.type.msg}
     div(class="flex mb-4")
       div(class="w-1/2 pr-2")
-        label(for="startDateMonth" class="block text-sm font-medium text-gray-600 mb-2") Start Date Month
-        input(type="text" name="startDateMonth" id="startDateMonth" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+        label(for="start-date-month" class="block text-sm font-medium text-gray-600 mb-2") Start Date Month
+        input(type="text" name="start-date-month" id="start-date-month" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
         if errors && errors.startDateMonth
           p.text-red-500.text-xs.mt-2 #{errors.startDateMonth.msg}
       div(class="w-1/2 pl-2")
-        label(for="startDateYear" class="block text-sm font-medium text-gray-600 mb-2") Start Date Year
-        input(type="text" name="startDateYear" id="startDateYear" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+        label(for="start-date-year" class="block text-sm font-medium text-gray-600 mb-2") Start Date Year
+        input(type="text" name="start-date-year" id="start-date-year" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
         if errors && errors.startDateYear
           p.text-red-500.text-xs.mt-2 #{errors.startDateYear.msg}
     div(class="mb-4 inline-flex items-center")
-      input(type="checkbox" name="stillOpen" id="stillOpen" value="true" class="mr-2 focus:border-blue-500 focus:outline-none")
-      label(for="stillOpen" class="text-sm font-medium text-gray-600") Still Open
+      input(type="checkbox" name="still-open" id="still-open" value="true" class="mr-2 focus:border-blue-500 focus:outline-none")
+      label(for="still-open" class="text-sm font-medium text-gray-600") Still Open
     div(class="flex mb-4")
       div(class="w-1/2 pr-2")
-        label(for="endDateMonth" class="block text-sm font-medium text-gray-600 mb-2") End Date Month
-        input(type="text" name="endDateMonth" id="endDateMonth" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+        label(for="end-date-month" class="block text-sm font-medium text-gray-600 mb-2") End Date Month
+        input(type="text" name="end-date-month" id="end-date-month" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
         if errors && errors.endDateMonth
           p.text-red-500.text-xs.mt-2 #{errors.endDateMonth.msg}
       div(class="w-1/2 pl-2")
-        label(for="endDateYear" class="block text-sm font-medium text-gray-600 mb-2") End Date Year
-        input(type="text" name="endDateYear" id="endDateYear" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+        label(for="end-date-year" class="block text-sm font-medium text-gray-600 mb-2") End Date Year
+        input(type="text" name="end-date-year" id="end-date-year" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
         if errors && errors.endDateYear
           p.text-red-500.text-xs.mt-2 #{errors.endDateYear.msg}
     div(class="mb-4")

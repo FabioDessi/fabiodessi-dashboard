@@ -1,0 +1,21 @@
+extends ../layouts/base
+
+block content
+  h1(class="text-2xl font-bold mb-4") #{title}
+  form(method="POST" action="/about-sections/create" class="bg-white p-6 rounded shadow-md")
+    div(class="mb-4")
+      label(for="title-first-line" class="block text-sm font-medium text-gray-600 mb-2") Title First Line 
+      input(type="text" name="title-first-line" id="title-first-line" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4")
+      label(for="title-second-line" class="block text-sm font-medium text-gray-600 mb-2") Title Second Line 
+      input(type="text" name="title-second-line" id="title-second-line" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4")
+      label(for="intro-title" class="block text-sm font-medium text-gray-600 mb-2") Intro Title
+      input(type="text" name="intro-title" id="intro-title" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4")
+      label(for="intro-content" class="block text-sm font-medium text-gray-600 mb-2") Intro Content 
+      textarea(name="intro-content", id="intro-content" cols="30", rows="10" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+    div(class="mb-4")
+      input(type="submit" value="Submit" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded")
+  a(href="/about-sections" class="text-blue-500 hover:underline mt-4 inline-block") Back to About Sections list
+

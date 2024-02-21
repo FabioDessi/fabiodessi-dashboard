@@ -3,6 +3,7 @@ include ../partials/notification
 if errors && Object.keys(errors).length
   +notification('error', 'Validation error', 'Check the form for the specific error.', errorCircleSvg)
 
+// TODO: refactor form to use partial for both POST and PUT requests
 form#update-work-experience-form( 
   hx-put=`/work-experiences/${workExperience.id}`
   hx-method="put"
@@ -27,27 +28,27 @@ form#update-work-experience-form(
       p.text-red-500.text-xs.mt-2 #{errors.type.msg}
   div(class="flex mb-4")
     div(class="w-1/2 pr-2")
-      label(for="startDateMonth" class="block text-sm font-medium text-gray-600 mb-2") Start Date Month
-      input(type="text" name="startDateMonth" value=workExperience.startDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      label(for="start-date-month" class="block text-sm font-medium text-gray-600 mb-2") Start Date Month
+      input(type="text" name="start-date-month" value=workExperience.startDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
       if errors && errors.startDateMonth
         p.text-red-500.text-xs.mt-2 #{errors.startDateMonth.msg}
     div(class="w-1/2 pl-2")
-      label(for="startDateYear" class="block text-sm font-medium text-gray-600 mb-2") Start Date Year
-      input(type="text" name="startDateYear" value=workExperience.startDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      label(for="start-date-year" class="block text-sm font-medium text-gray-600 mb-2") Start Date Year
+      input(type="text" name="start-date-year" value=workExperience.startDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
       if errors && errors.startDateYear
         p.text-red-500.text-xs.mt-2 #{errors.startDateYear.msg}
   div(class="mb-4 inline-flex items-center")
-    input(type="checkbox" name="stillOpen" value="true" class="mr-2 focus:border-blue-500 focus:outline-none" checked=workExperience.stillOpen)
-    label(for="stillOpen" class="text-sm font-medium text-gray-600") Still Open
+    input(type="checkbox" name="still-open" value="true" class="mr-2 focus:border-blue-500 focus:outline-none" checked=workExperience.stillOpen)
+    label(for="still-open" class="text-sm font-medium text-gray-600") Still Open
   div(class="flex mb-4")
     div(class="w-1/2 pr-2")
-      label(for="endDateMonth" class="block text-sm font-medium text-gray-600 mb-2") End Date Month
-      input(type="text" name="endDateMonth" value=workExperience.endDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      label(for="end-date-month" class="block text-sm font-medium text-gray-600 mb-2") End Date Month
+      input(type="text" name="end-date-month" value=workExperience.endDateMonth class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
       if errors && errors.endDateMonth
         p.text-red-500.text-xs.mt-2 #{errors.endDateMonth.msg}
     div(class="w-1/2 pl-2")
-      label(for="endDateYear" class="block text-sm font-medium text-gray-600 mb-2") End Date Year
-      input(type="text" name="endDateYear" value=workExperience.endDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
+      label(for="end-date-year" class="block text-sm font-medium text-gray-600 mb-2") End Date Year
+      input(type="text" name="end-date-year" value=workExperience.endDateYear class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none")
       if errors && errors.endDateYear
         p.text-red-500.text-xs.mt-2 #{errors.endDateYear.msg}
   div(class="mb-4")
