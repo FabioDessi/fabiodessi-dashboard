@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const AboutSection = require('../models/AboutSection');
 
 // About Page Sections view
@@ -22,7 +20,6 @@ const aboutSectionView = async (req, res) => {
 
   try {
     const aboutSection = await AboutSection.findById(aboutSectionId);
-    console.log('aboutSectionView', aboutSection);
 
     res.render('pages/aboutSection', {
       currentUrl: req.originalUrl,
@@ -34,7 +31,7 @@ const aboutSectionView = async (req, res) => {
   }
 };
 
-// Create new About Section aboutView
+// Create new About Section View
 const createAboutSectionView = (req, res) => {
   res.render('pages/createAboutSection', {
     currentUrl: req.originalUrl,
@@ -42,22 +39,46 @@ const createAboutSectionView = (req, res) => {
   });
 };
 
+// Create new About Section block
+const createAboutSectionBlock = (req, res) => {
+  res.render('partials/blocksRowForm');
+}
+
 // Create new About Section
 const createAboutSection = async (req, res) => {
-  console.log(req.body);
-  const { titleFirstLine, titleSecondLine, introTitle, introContent } = req.body;
+  const { titleFirstLine, titleSecondLine, introTitle, introContent, blockTitle, blockContent } = req.body;
+  let blocks = [];
+
   const title = {
     firstLine: titleFirstLine,
     secondLine: titleSecondLine,
   };
+
   const intro = {
     title: introTitle,
     content: introContent,
   };
 
+  if (typeof blockTitle === 'string') {
+    blocks.push({
+      title: blockTitle,
+      content: blockContent,
+    });
+  }
+
+  if (typeof blockTitle === 'object') {
+    for (let i = 0; i < blockTitle.length; i++) {
+      blocks.push({
+        title: blockTitle[i],
+        content: blockContent[i],
+      });
+    }
+  }
+
   const newAboutSection = new AboutSection({
     title,
     intro,
+    blocks,
   });
 
   try {
@@ -71,12 +92,31 @@ const createAboutSection = async (req, res) => {
 
 // Update About Section
 const updateAboutSection = async (req, res) => {
-  const { titleFirstLine, titleSecondLine, introTitle, introContent } = req.body;
+  const { titleFirstLine, titleSecondLine, introTitle, introContent, blockTitle, blockContent } = req.body;
   const { aboutSectionId } = req.params;
+  let blocks = [];
+
+  if (typeof blockTitle === 'string') {
+    blocks.push({
+      title: blockTitle,
+      content: blockContent,
+    });
+  }
+
+  if (typeof blockTitle === 'object') {
+    for (let i = 0; i < blockTitle.length; i++) {
+      blocks.push({
+        title: blockTitle[i],
+        content: blockContent[i],
+      });
+    }
+  }
+
   const title = {
     firstLine: titleFirstLine,
     secondLine: titleSecondLine,
   };
+
   const intro = {
     title: introTitle,
     content: introContent,
@@ -88,16 +128,17 @@ const updateAboutSection = async (req, res) => {
       {
         title,
         intro,
+        blocks,
       },
       { new: true }
     );
-    
+
     res.render('partials/aboutSectionForm', {
       aboutSection: updateAboutSection,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send('Server Error');
+    res.status(500).send('Server Error')
   }
 }
 
@@ -124,4 +165,4 @@ const deleteAboutSection = async (req, res) => {
   }
 }
 
-module.exports = { aboutSectionsView, aboutSectionView, createAboutSection, createAboutSectionView, updateAboutSection, deleteAboutSection };
+module.exports = { aboutSectionsView, aboutSectionView, createAboutSection, createAboutSectionView, updateAboutSection, deleteAboutSection, createAboutSectionBlock };

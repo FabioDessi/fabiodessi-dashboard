@@ -18,5 +18,20 @@ form#update-about-section-form(
     label(for="intro-content" class="block text-sm font-medium text-gray-600 mb-2") Intro Content 
     textarea(name="intro-content", id="intro-content" cols="30", rows="10" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none") #{aboutSection.intro.content}
   div(class="mb-4")
+    h2(class="text-xl font-bold mb-4") Section blocks
+    table(class="min-w-full bg-white shadow-md rounded-lg overflow-hidden mb-4")
+      thead
+        tr
+          th(class="bg-blue-600 text-white p-3 text-left border-r") Title
+          th(class="bg-blue-600 text-white p-3 text-left border-r") Content
+          th(class="bg-blue-600 text-white p-3 text-left w-1/4") Actions
+        tbody#about-blocks-container
+        if aboutSection.blocks && aboutSection.blocks.length > 0
+          each block in aboutSection.blocks
+            include ../partials/blocksRowForm
+        else
+          tr(class="border-b border-gray-200 hover:bg-gray-100")
+            td(class="p-3") No blocks found
+    button(hx-get='/about-sections/new-about-block' hx-target='#about-blocks-container' hx-swap='beforeend' class="bg-blue-600 text-white hover:bg-blue-698 px-4 py-2 rounded ml-auto") Add Block
+  div(class="mb-4")
     input(type="submit" value="Update" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded")
-
