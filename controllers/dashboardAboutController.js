@@ -90,6 +90,11 @@ const createAboutSection = async (req, res) => {
   }
 }
 
+// Remove About Section block
+const removeAboutSectionBlock = (req, res) => {
+  res.status(200).send();
+}
+
 // Update About Section
 const updateAboutSection = async (req, res) => {
   const { titleFirstLine, titleSecondLine, introTitle, introContent, blockTitle, blockContent } = req.body;
@@ -165,4 +170,4 @@ const deleteAboutSection = async (req, res) => {
   }
 }
 
-module.exports = { aboutSectionsView, aboutSectionView, createAboutSection, createAboutSectionView, updateAboutSection, deleteAboutSection, createAboutSectionBlock };
+module.exports = { aboutSectionsView, aboutSectionView, createAboutSection, createAboutSectionView, updateAboutSection, deleteAboutSection, createAboutSectionBlock, removeAboutSectionBlock };

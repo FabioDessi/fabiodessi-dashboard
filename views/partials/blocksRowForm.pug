@@ -4,4 +4,4 @@ tr(class="border-b border-gray-200 hover:bg-gray-100")
   td(class="p-3")
     textarea(name="block-content" cols="15" rows="5" class="w-full p-2 border rounded focus:border-blue-500 focus:outline-none") #{block ? block.content : ''}
   td(class="p-3 flex justify-start")
-    button(hx-delete="" hx-target="body" class="text-white bg-red-500 hover:bg-red-600 rounded px-3 py-1") Delete
+    button(hx-delete="/about-sections/remove-about-block" hx-target="closest tr" hx-swap="delete" class="text-white bg-red-500 hover:bg-red-600 rounded px-3 py-1") Delete
